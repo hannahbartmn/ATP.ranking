@@ -41,9 +41,9 @@ Hannah Bartmann
 
 data("tennis_data")
 
-date <- max(tennis$tourney_date)
+date <- max(tennis_data$tourney_date)
 
-subset <- tennis[tennis$tourney_date > date - 365*2, ]
+subset <- tennis_data[tennis_data$tourney_date > date - 365*2, ]
 subset <- na.omit(subset)
 
 #library(tidyverse)
