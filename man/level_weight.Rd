@@ -48,7 +48,7 @@ subset <- na.omit(subset)
 
 #library(tidyverse)
 player_info <- data.frame(id = subset$player_id, name = subset$player_name)
-player_info <- rbind(player_info, data.frame(id = $opponent_id, name = subset$opponent_name))
+player_info <- rbind(player_info, data.frame(id = subset$opponent_id, name = subset$opponent_name))
 player_info <- distinct(player_info)
 
 #determine outlier
@@ -65,11 +65,11 @@ for(i in 1:dim(player_info)[1]){
     outlier <- c(outlier, temp)
 }
 
-subset[subset$player_name %in% outlier, "player_id"] <- 400000 #outliers get the same id
-subset[subset$player_name %in% outlier, "player_name"] <- "Outlier"
+subset[subset$player_name \%in\% outlier, "player_id"] <- 400000 #outliers get the same id
+subset[subset$player_name \%in\% outlier, "player_name"] <- "Outlier"
 
-subset[subset$opponent_name %in% outlier, "opponent_id"] <- 400000 #outliers get the same id
-subset[subset$opponent_name %in% outlier, "opponent_name"] <- "Outlier"
+subset[subset$opponent_name \%in\% outlier, "opponent_id"] <- 400000 #outliers get the same id
+subset[subset$opponent_name \%in\% outlier, "opponent_name"] <- "Outlier"
 
 #update player_info with the outliers
 player_info <- data.frame(id = subset$player_id, name = subset$player_name)
