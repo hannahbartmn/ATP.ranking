@@ -73,13 +73,13 @@ subset[subset$opponent_name \%in\% outlier, "opponent_name"] <- "Outlier"
 
 #update player_info with the outliers
 player_info <- data.frame(id = subset$player_id, name = subset$player_name)
-player_info <- rbind(player_info, data.frame(id = $opponent_id, name = subset$opponent_name))
+player_info <- rbind(player_info, data.frame(id = subset$opponent_id, name = subset$opponent_name))
 player_info <- distinct(player_info)
 
 #prep design matrix
-subset$player_id <- factor(subset$player_id, levels = player_info_4_years$id, labels = player_info_4_years$name)
+subset$player_id <- factor(subset$player_id, levels = player_info$id, labels = player_info$name)
 subset$player_id <- relevel(subset$player_id, "Outlier")
-subset$opponent_id <- factor(subset$opponent_id, levels = player_info_4_years$id, labels = player_info_4_years$name)
+subset$opponent_id <- factor(subset$opponent_id, levels = player_info$id, labels = player_info$name)
 subset$opponent_id <-  relevel(subset$opponent_id, "Outlier")
 
 #remove games where a outlier plays against a outlier
@@ -95,6 +95,10 @@ X <- cbind(subset$home_tourney, X_1-X_2)
 colnames(X)[1] <- "home"
 
 #check for zero-columns, because some ids appear under a different name
+check.zero <- function(x){
+  sum(x != 0)
+}
+
 index <- c()
 for(i in 1:dim(X)[2]){
   if(check.zero(X[,i]) == 0)
@@ -114,7 +118,7 @@ X <- X[,-2]
 X <- data.frame(X)
 
 #determine weights
-w_level <- sapply(subset, level_weight)
+w_level <- sapply(subset$tourney_date, level_weight)
 w_time <- time_weight(d = subset$date_difference, halfperiod = 100)
 
 weights <- w_level * w_time
