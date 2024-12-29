@@ -118,7 +118,7 @@ X <- X[,-2]
 X <- data.frame(X)
 
 #determine weights
-w_level <- sapply(subset$tourney_date, level_weight)
+w_level <- sapply(subset$tourney_level, level_weight)
 w_time <- time_weight(d = subset$date_difference, halfperiod = 100)
 
 weights <- w_level * w_time
