@@ -11,8 +11,7 @@ install_github("hannahbartmn/ATP.ranking")
 
 # Contents
 
-Find out about the dataset and the weight functions with: The dataset
-can be accessed with:
+Find out about the dataset and the weight functions with:
 
 ``` r
 help(package = "ATP.ranking")
